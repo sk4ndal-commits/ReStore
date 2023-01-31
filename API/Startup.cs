@@ -12,6 +12,8 @@ namespace API
 {
     public class Startup
     {
+        private readonly string ReactOrigin = "_reactOrigin";
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,6 +36,13 @@ namespace API
                 // accesses the value of the DefaultConnection field
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: ReactOrigin, policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +58,8 @@ namespace API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(ReactOrigin);
 
             app.UseAuthorization();
 
