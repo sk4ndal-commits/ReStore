@@ -14,7 +14,6 @@ interface Props {
 export default function ProductCard({product}: Props) {
     return(
         <Card>
-
             <CardHeader
                 avatar={
                     <Avatar sx={{bgcolor: "secondary.main"}}>
