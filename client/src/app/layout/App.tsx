@@ -7,6 +7,9 @@ import HomePage from "../../features/home/HomePage";
 import ProductDetails from "../../features/catalog/ProductDetails";
 import AboutPage from "../../features/about/AboutPage";
 import ContactPage from "../../features/contact/ContactPage";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ServerError from "../errors/ServerError";
 
 function App() {
 
@@ -29,6 +32,7 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
+            <ToastContainer position={"bottom-right"} hideProgressBar={false} />
             <CssBaseline />
             <Header  changeThemeMode={changeThemeMode} />
             <Container>
@@ -38,6 +42,7 @@ function App() {
                     <Route path={"/catalog/:id"} element={<ProductDetails />} />
                     <Route path={"/about"} element={<AboutPage />} />
                     <Route path={"/contact"} element={<ContactPage />} />
+                    <Route path={"/server-error"} element={<ServerError />} />
                 </Routes>
             </Container>
         </ThemeProvider>
