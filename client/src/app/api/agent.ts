@@ -1,50 +1,6 @@
-import axios, {AxiosError, AxiosResponse} from "axios";
-import {toast} from "react-toastify";
-
-// TODO: reformat into Axios-Component, see:
-//  https://stackoverflow.com/questions/74085802/what-is-the-correct-way-to-use-usenavigate-inside-axios-interceptor
+import axios, {AxiosResponse} from "axios";
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
-
-// intercept the server response st if we got an error, we gain access
-// to its error response, else just return the response
-
-axios.interceptors.response.use(response => {
-    return response
-}, (error: AxiosError) => {
-
-    // @ts-ignore
-    const {data, status} = error.response ? error.response : error;
-
-    // @ts-ignore
-    const dataTitle = data.title;
-
-    // @ts-ignore
-    const dataErrors = data.errors;
-
-    switch (status) {
-        case 400:
-            if (dataErrors) {
-                const modelStateErrors: string[] = [];
-
-                for (const key in dataErrors) {
-                    if (dataErrors[key]) modelStateErrors.push(dataErrors[key])
-                }
-
-                throw  modelStateErrors.flat();
-            }
-
-            toast.error(dataTitle);
-            break;
-        case 401:
-            toast.error(dataTitle);
-            break;
-        default:
-            break;
-    }
-
-    return Promise.reject(error.response);
-})
 
 const responseBody = (response: AxiosResponse) => response.data;
 

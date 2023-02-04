@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import agent from "../../app/api/agent";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
 
 export default function AboutPage() {
 
@@ -20,12 +19,6 @@ export default function AboutPage() {
         agent.TestErrors.getValidationError()
             .then(() => console.log('should not see this'))
             .catch(err => setValidationErrors(err))
-    }
-
-    const navigateUrl = useNavigate();
-
-    function gotoServerErrorComponent() {
-        navigateUrl("/server-error")
     }
 
     return(
@@ -53,7 +46,7 @@ export default function AboutPage() {
                 </Button>
 
                 <Button variant={"contained"}
-                        onClick={gotoServerErrorComponent}
+                        onClick={() => agent.TestErrors.get500Error().catch(err => console.log(err))}
                 >
                     500 Error
                 </Button>

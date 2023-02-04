@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
+import AxiosInterceptor from "./features/navigation/AxiosInterceptor";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,6 +11,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <BrowserRouter>
+          <AxiosInterceptor />
           <App />
       </BrowserRouter>
   </React.StrictMode>
