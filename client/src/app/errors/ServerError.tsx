@@ -1,14 +1,10 @@
-import {Button, Container, Paper, Typography} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import {Container, Paper, Typography} from "@mui/material";
+import RedirectButton from "../redirect/RedirectButton";
+
 
 export default function ServerError() {
 
-
-    const navigateUrl = useNavigate();
-
-    function gotoCatalog() {
-        navigateUrl("/catalog")
-    }
+    // TODO: pass error object from interceptor to here
 
     return(
         <Container component={Paper}>
@@ -18,7 +14,7 @@ export default function ServerError() {
 
             <Typography>We need to get the error object from the interceptor here</Typography>
 
-            <Button onClick={gotoCatalog}>go to store</Button>
+            <RedirectButton url={"/catalog"} buttonName={"go to store"} />
         </Container>
     )
 }
