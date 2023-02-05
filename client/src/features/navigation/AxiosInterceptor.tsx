@@ -5,12 +5,17 @@ import {toast} from "react-toastify";
 
 
 
-function useAxiosNavigation() {
+function useAxiosInterception() {
     const navRef = useRef(useNavigate());
+
+    const sleep = () => new Promise(resolve => setTimeout(resolve, 300));
 
     useEffect(() => {
         const interceptor = axios.interceptors.response.use(
-            (response) => response,
+            async (response) => {
+                await sleep();
+                return response;
+            },
             (error: AxiosError) => {
 
 
@@ -41,6 +46,11 @@ function useAxiosNavigation() {
                         toast.error(dataTitle);
                         break;
                     }
+                    case 404: {
+                        console.log("caught 404 by interceptor");
+                        navRef.current("not-found");
+                        break;
+                    }
                     case 500: {
                         console.log("caught 500 by interceptor");
                         navRef.current("server-error");
@@ -63,7 +73,7 @@ function useAxiosNavigation() {
 
 export default function AxiosInterceptor() {
 
-    useAxiosNavigation();
+    useAxiosInterception();
 
     return <></>;
 }

@@ -10,6 +10,7 @@ import ContactPage from "../../features/contact/ContactPage";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ServerError from "../errors/ServerError";
+import NotFound from "../errors/NotFound";
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
                     <Route path={"/about"} element={<AboutPage />} />
                     <Route path={"/contact"} element={<ContactPage />} />
                     <Route path={"/server-error"} element={<ServerError />} />
+                    <Route path={"/not-found"} element={<NotFound />} />
                 </Routes>
             </Container>
         </ThemeProvider>
