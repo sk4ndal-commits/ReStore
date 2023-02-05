@@ -3,9 +3,12 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Product} from "../../app/models/product";
 import agent from "../../app/api/agent";
+import NotFound from "../../app/errors/NotFound";
+import LoadingScreen from "../navigation/LoadingScreen";
 
 
 export default function ProductDetails() {
+
 
     const {id} = useParams<{id: string}>();
 
@@ -19,9 +22,8 @@ export default function ProductDetails() {
             .finally(() => setLoading(false))
     }, [id])
 
-    if (loading) return <h2>Loading ...</h2>
-    if (!product) return <h2>No product found!</h2>
-
+    if (loading) return <LoadingScreen />
+    if (!product) return <NotFound />
 
     return(
         <Grid container spacing={6}>
